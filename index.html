@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Lost & Found</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+            color: #1d2940;
+        }
+
+        header {
+            background: #142443;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h2 span {
+            color: #82a5ff;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #142443, #3563e9);
+            color: white;
+            text-align: center;
+            padding: 75px 20px;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #e0e8ff;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 7px;
+            background: #3563e9;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .hero .btn {
+            background: white;
+            color: #244bc9;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 25px 5%;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            flex: 1;
+            min-width: 160px;
+            max-width: 280px;
+            background: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #14244310;
+        }
+
+        .stat h2 {
+            color: #3563e9;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        section {
+            padding: 45px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title h2 {
+            font-size: 29px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-bar input,
+        .search-bar select {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px;
+            border: 1px solid #dce3ef;
+            border-radius: 7px;
+            background: white;
+        }
+
+        .items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #14244310;
+        }
+
+        .item-image {
+            height: 125px;
+            display: grid;
+            place-items: center;
+            font-size: 48px;
+            background: #e5edff;
+        }
+
+        .item-content {
+            padding: 18px;
+        }
+
+        .item-content h3 {
+            margin-bottom: 10px;
+        }
+
+        .item-content p {
+            color: #718096;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .lost {
+            background: #ffeadf;
+            color: #b64213;
+        }
+
+        .found {
+            background: #dcf8eb;
+            color: #08784f;
+        }
+
+        .item-content .btn {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .report-section {
+            background: #eaf0ff;
+        }
+
+        .form-container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px #14244310;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .form-container label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin: 14px 0 7px;
+        }
+
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dce3ef;
+            border-radius: 7px;
+            font-family: inherit;
+        }
+
+        .form-container textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-container .btn {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        footer {
+            background: #142443;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 800px) {
+            .items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav a {
+                margin: 0 6px;
+            }
+
+            .items {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 35px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Campus <span>Lost & Found</span></h2>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#browse">Browse Items</a>
+        <a href="#report">Report Item</a>
+    </nav>
+</header>
+
+<div class="hero" id="home">
+    <h1>Lost Something? Let's Find It!</h1>
+    <p>
+        Helping students find their lost belongings
+        and return found items across campus.
+    </p>
+    <a href="#browse" class="btn">Find an Item</a>
+</div>
+
+<div class="stats">
+    <div class="stat">
+        <h2 id="total">3</h2>
+        <p>Total Reports</p>
+    </div>
+    <div class="stat">
+        <h2 id="lostTotal">2</h2>
+        <p>Lost Items</p>
+    </div>
+    <div class="stat">
+        <h2 id="foundTotal">1</h2>
+        <p>Found Items</p>
+    </div>
+</div>
+
+<section id="browse">
+    <div class="section-title">
+        <h2>Recent Lost & Found Items</h2>
+        <p>Search for belongings reported by students.</p>
+    </div>
+
+    <div class="search-bar">
+        <input
+            type="search"
+            id="search"
+            placeholder="Search by item or location..."
+        >
+
+        <select id="filter">
+            <option value="All">All Items</option>
+            <option value="Lost">Lost Items</option>
+            <option value="Found">Found Items</option>
+        </select>
+    </div>
+
+    <div class="items" id="items"></div>
+</section>
+
+<section class="report-section" id="report">
+    <div class="form-container">
+        <h2>Report a Lost or Found Item</h2>
+
+        <form id="reportForm">
+            <label for="type">Report Type</label>
+            <select id="type" required>
+                <option value="Lost">I Lost an Item</option>
+                <option value="Found">I Found an Item</option>
+            </select>
+
+            <label for="name">Item Name</label>
+            <input
+                id="name"
+                required
+                placeholder="e.g. Black wallet"
+            >
+
+            <label for="location">Campus Location</label>
+            <input
+                id="location"
+                required
+                placeholder="e.g. College Library"
+            >
+
+            <label for="description">Item Description</label>
+            <textarea
+                id="description"
+                required
+                placeholder="Describe the item, colour, brand, etc."
+            ></textarea>
+
+            <label for="contact">Contact Email</label>
+            <input
+                id="contact"
+                type="email"
+                required
+                placeholder="student@example.com"
+            >
+
+            <button class="btn" type="submit">
+                Submit Report
+            </button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    <h3>Campus Lost & Found</h3>
+    <p>Helping students reconnect with their belongings.</p>
+    <p>© 2026 Campus Lost & Found | Student Project</p>
+</footer>
+
+<script>
+    const demoItems = [
+        {
+            id: 1,
+            type: "Lost",
+            name: "Wireless Earbuds",
+            location: "College Library",
+            description: "White wireless earbuds in a charging case.",
+            contact: "student1@example.com",
+            emoji: "🎧"
+        },
+        {
+            id: 2,
+            type: "Found",
+            name: "Blue Water Bottle",
+            location: "Cafeteria",
+            description: "Blue reusable water bottle found on a table.",
+            contact: "student2@example.com",
+            emoji: "🧴"
+        },
+        {
+            id: 3,
+            type: "Lost",
+            name: "Black Notebook",
+            location: "Classroom 204",
+            description: "Black notebook containing class notes.",
+            contact: "student3@example.com",
+            emoji: "📓"
+        }
+    ];
+
+    let reports = [...demoItems];
+
+    try {
+        const saved = JSON.parse(
+            localStorage.getItem("campusReports") || "[]"
+        );
+        if (Array.isArray(saved)) {
+            reports = [...saved, ...demoItems];
+        }
+    } catch (error) {
+        console.log("Browser storage unavailable.");
+    }
+
+    const itemsContainer = document.getElementById("items");
+
+    function renderItems() {
+        const query = document
+            .getElementById("search")
+            .value.toLowerCase();
+
+        const filter = document.getElementById("filter").value;
+
+        const filtered = reports.filter(item => {
+            const matchesText =
+                item.name.toLowerCase().includes(query) ||
+                item.location.toLowerCase().includes(query) ||
+                item.description.toLowerCase().includes(query);
+
+            const matchesType =
+                filter === "All" || item.type === filter;
+
+            return matchesText && matchesType;
+        });
+
+        itemsContainer.innerHTML = "";
+
+        if (filtered.length === 0) {
+            itemsContainer.innerHTML =
+                "<p>No matching items found. Try another search.</p>";
+        }
+
+        filtered.forEach(item => {
+            const card = document.createElement("article");
+            card.className = "item-card";
+
+            const image = document.createElement("div");
+            image.className = "item-image";
+            image.textContent = item.emoji || "📦";
+
+            const content = document.createElement("div");
+            content.className = "item-content";
+
+            const status = document.createElement("span");
+            status.className =
+                "status " + item.type.toLowerCase();
+            status.textContent = item.type;
+
+            const title = document.createElement("h3");
+            title.textContent = item.name;
+
+            const location = document.createElement("p");
+            location.textContent = "📍 " + item.location;
+
+            const description = document.createElement("p");
+            description.textContent = item.description;
+
+            const contact = document.createElement("button");
+            contact.className = "btn";
+            contact.textContent = "Contact Reporter";
+
+            contact.addEventListener("click", () => {
+                const email = item.contact;
+                if (email) {
+                    window.location.href =
+                        "mailto:" + email +
+                        "?subject=" +
+                        encodeURIComponent(
+                            "Campus Lost & Found: " + item.name
+                        );
+                } else {
+                    alert("No contact information available.");
+                }
+            });
+
+            content.append(
+                status,
+                title,
+                location,
+                description,
+                contact
+            );
+
+            card.append(image, content);
+            itemsContainer.appendChild(card);
+        });
+
+        document.getElementById("total").textContent =
+            reports.length;
+
+        document.getElementById("lostTotal").textContent =
+            reports.filter(item => item.type === "Lost").length;
+
+        document.getElementById("foundTotal").textContent =
+            reports.filter(item => item.type === "Found").length;
+    }
+
+    document.getElementById("search")
+        .addEventListener("input", renderItems);
+
+    document.getElementById("filter")
+        .addEventListener("change", renderItems);
+
+    document.getElementById("reportForm")
+        .addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const item = {
+                id: Date.now(),
+                type: document.getElementById("type").value,
+                name: document.getElementById("name").value.trim(),
+                location: document.getElementById("location").value.trim(),
+                description: document.getElementById("description").value.trim(),
+                contact: document.getElementById("contact").value.trim(),
+                emoji: "📦"
+            };
+
+            reports.unshift(item);
+
+            try {
+                const customReports = reports.filter(
+                    report => !demoItems.some(
+                        demo => demo.id === report.id
+                    )
+                );
+
+                localStorage.setItem(
+                    "campusReports",
+                    JSON.stringify(customReports)
+                );
+            } catch (error) {
+                alert("Browser storage is unavailable.");
+            }
+
+            this.reset();
+            renderItems();
+
+            alert("Your report has been added successfully!");
+            document.getElementById("browse")
+                .scrollIntoView({ behavior: "smooth" });
+        });
+
+    renderItems();
+</script>
+
+</body>
+</html>
